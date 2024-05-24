@@ -25,10 +25,9 @@ class CounterActivity : AppCompatActivity() {
                 viewModel.updateCounterData(false)
             }
 
-            viewModel.counterData.observe(this@CounterActivity) {result->
-                tvResult.text=result.toString()
+            viewModel.counterData.observe(this@CounterActivity) { result ->
+                tvResult.text = result.toString()
             }
-
         }
     }
 }
