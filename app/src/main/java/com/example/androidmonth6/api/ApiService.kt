@@ -7,3 +7,4 @@ interface ApiService {
     @GET("character")
     suspend fun getCharacters(): BaseResponce
 }
+//2
