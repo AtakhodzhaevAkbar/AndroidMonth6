@@ -6,21 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.androidmonth6.data.model.Character
 import com.example.androidmonth6.databinding.FragmentSecondBinding
 import com.example.androidmonth6.ui.CharactersViewModel
 import com.example.androidmonth6.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class SecondFragment : Fragment() {
     private lateinit var binding: FragmentSecondBinding
     private var g = 0
-    private val viewModel by lazy {
-        ViewModelProvider(requireActivity())[CharactersViewModel::class.java]
-    }
+    private val viewModel: CharactersViewModel by viewModel()
     private val args: SecondFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -44,8 +41,6 @@ class SecondFragment : Fragment() {
             tvStatus.text = character.status
             tvRace.text = character.species
             tvGender.text = character.gender
-            tvLastSeenIn.text = character.location.name
-            tvFirstEpisode.text = character.origin.name
         }
     }
 

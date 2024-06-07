@@ -6,19 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.example.androidmonth6.R
 import com.example.androidmonth6.databinding.FragmentFirstBinding
 import com.example.androidmonth6.ui.CharactersViewModel
 import com.example.androidmonth6.utils.Resource
 import androidx.navigation.fragment.findNavController
 import androidx.core.os.bundleOf
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FirstFragment : Fragment() {
     private lateinit var binding: FragmentFirstBinding
-    private val viewModel by lazy {
-        ViewModelProvider(this)[CharactersViewModel::class.java]
-    }
+    private val viewModel: CharactersViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

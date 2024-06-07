@@ -5,9 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.example.androidmonth6.data.Repository
 import com.example.androidmonth6.data.model.Character
 import com.example.androidmonth6.utils.Resource
-import javax.inject.Inject
 
-class CharactersViewModel @Inject constructor(
+class CharactersViewModel(
     private val repository: Repository
 ) : ViewModel() {
     val characters: LiveData<Resource<List<Character>>> = repository.getCharacters()

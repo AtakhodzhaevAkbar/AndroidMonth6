@@ -4,6 +4,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -36,6 +37,7 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+
     }
 
     buildFeatures {
@@ -73,6 +75,11 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    val koin_version = "3.6.0-wasm-alpha2"
+    implementation(platform("io.insert-koin:koin-bom:$koin_version"))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
 }
 
 kapt {

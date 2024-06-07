@@ -1,42 +1,45 @@
 package com.example.androidmonth6
 
 import com.example.androidmonth6.api.ApiService
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import com.example.androidmonth6.data.Repository
+import com.example.androidmonth6.ui.CharactersViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object AppModule {
-    @Singleton
-    @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl("https://rickandmortyapi.com/api/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttpClient)
-        .build()
+val appModule = module {
 
-    @Singleton
-    @Provides
-    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient = OkHttpClient.Builder()
-        .callTimeout(30, TimeUnit.SECONDS)
-        .addInterceptor(interceptor)
-        .build()
-
-    @Singleton
-    @Provides
-    fun provideInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
+    single {
+        OkHttpClient.Builder()
+            .callTimeout(30, TimeUnit.SECONDS)
+            .addInterceptor(get<HttpLoggingInterceptor>())
+            .build()
     }
 
-    @Singleton
-    @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+    single {
+        HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+
+    single {
+        Retrofit.Builder()
+            .baseUrl("https://rickandmortyapi.com/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(get())
+            .build()
+    }
+
+    single {
+        get<Retrofit>().create(ApiService::class.java)
+    }
+
+    single { Repository(get()) }
+
+    viewModel { CharactersViewModel(get()) }
 }
