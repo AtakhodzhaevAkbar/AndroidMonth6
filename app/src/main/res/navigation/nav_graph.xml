@@ -2,29 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/characterFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.androidmonth6.ui.fragments.FirstFragment"                                 
-        tools:layout="@layout/fragment_first">
-        <action
-            android:id="@+id/action_firstFragment_to_secondFragment"
-            app:destination="@id/secondFragment">
-            <argument
-                android:name="characterSC"
-                app:argType="com.example.androidmonth6.data.model.Character" />
-        </action>
-    </fragment>
-
+        android:id="@+id/characterFragment"
+        android:name="com.geeks.rickandmortyy.ui.characters.CharacterFragment"
+        android:label="fragment_character"
+        tools:layout="@layout/fragment_character" />
     <fragment
-        android:id="@+id/secondFragment"
-        android:name="com.example.androidmonth6.ui.fragments.SecondFragment"
-        tools:layout="@layout/fragment_second">
-        <argument
-            android:name="characterSC"
-            app:argType="com.example.androidmonth6.data.model.Character" />
-    </fragment>
-
+        android:id="@+id/characterDetailFragment"
+        android:name="com.geeks.rickandmortyy.ui.characters_detail.CharacterDetailFragment"
+        android:label="fragment_character_detail"
+        tools:layout="@layout/fragment_character_detail" />
 </navigation>

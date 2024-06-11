@@ -1,22 +1,21 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("com.google.dagger.hilt.android")
-    id("kotlin-kapt")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    id ("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
-    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "com.example.androidmonth6"
+    namespace = "com.geeks.rickandmortyy"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.androidmonth6"
-        minSdk = 24
+        applicationId = "com.geeks.rickandmortyy"
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -29,59 +28,68 @@ android {
             )
         }
     }
-
+    buildFeatures{
+        viewBinding = true
+        buildConfig = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = "1.8"
-
-    }
-
-    buildFeatures {
-        viewBinding = true
-        buildConfig = true
     }
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.navigation.fragment)
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-compiler:2.51.1")
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.10.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.10.0")
 
-    implementation(libs.retrofit)
-    implementation(libs.retrofit2.converter.gson)
+    //OkHttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
+    //interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
-    implementation(libs.expandablelayout)
+    //Navigation
+    val nav_version = "2.7.7"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
-    kapt(libs.kotlinx.metadata.jvm)
+    //ExpandableLayout
+    implementation ("com.github.skydoves:expandablelayout:1.0.7")
 
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    //Coil
+    implementation ("io.coil-kt:coil:2.4.0")
 
-    val koin_version = "3.6.0-wasm-alpha2"
-    implementation(platform("io.insert-koin:koin-bom:$koin_version"))
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
-}
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
-kapt {
-    correctErrorTypes = true
+    //paging3
+    val paging_version = "3.3.0"
+    implementation("androidx.paging:paging-runtime:$paging_version")
+
+    //coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    //viewModel
+    val lifecycle_version = "2.8.1"
+    implementation("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata:$lifecycle_version")
+
+    //Koin
+    implementation("io.insert-koin:koin-android:3.5.6")
+    //implementation ("org.koin:koin-androidx-viewmodel:3.1.2")
 }
